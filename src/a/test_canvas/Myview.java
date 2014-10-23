@@ -24,9 +24,12 @@ public class Myview extends View{
 	public boolean onTouchEvent(MotionEvent event) {
 		newX=event.getX();
 		newY=event.getY();
-		setNewLinePoint(newX-this.getWidth()/2, newY-this.getHeight());
+		//setNewLinePoint(newX-this.getWidth()/2, newY-this.getHeight()/2);
+		newX = newX - this.getWidth()/2;
+		newY = newY -  this.getHeight()/2;
 		Myview.this.invalidate();
-		return super.onTouchEvent(event);
+		//return super.onTouchEvent(event);
+		return true;
 	}
 	private void setNewLinePoint(float x,float y){
 		float z=(float) Math.sqrt(x*x+y*y);
@@ -66,7 +69,12 @@ public class Myview extends View{
 		numPaint.setStyle(Style.FILL);
 		numPaint.setColor(Color.GREEN);
 		canvas.drawCircle(0, 0, 5, numPaint);
-		canvas.drawLine(x1, y1, x2, y2, paint);
+		if (newX == 0 && newY == 0) {
+			canvas.drawLine(x1, y1, x2, y2, paint);
+		} else {
+			canvas.drawLine(0, 0, newX, newY, paint);
+		}
+		
 		super.onDraw(canvas);
 	}
 	
